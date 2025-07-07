@@ -12,6 +12,19 @@ from .utils import (
     SessionValidationError,
     SessionValidationErrorCode,
 )
+from .profile import (
+    PROFILE_IV_LENGTH,
+    PROFILE_KEY_LENGTH,
+    PROFILE_TAG_LENGTH,
+    Avatar,
+    Profile,
+    serialize_profile,
+    deserialize_profile,
+    encrypt_profile,
+    decrypt_profile,
+    download_avatar,
+    upload_avatar,
+)
 
 __all__ = [
     "Uint8ArrayToHex",
@@ -26,5 +39,16 @@ __all__ = [
     "checkNetwork",
     "SessionValidationError",
     "SessionValidationErrorCode",
+    "PROFILE_IV_LENGTH",
+    "PROFILE_KEY_LENGTH",
+    "PROFILE_TAG_LENGTH",
+    "Avatar",
+    "Profile",
+    "serialize_profile",
+    "deserialize_profile",
+    "encrypt_profile",
+    "decrypt_profile",
+    "download_avatar",
+    "upload_avatar",
 ]
 
