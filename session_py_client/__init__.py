@@ -103,6 +103,13 @@ __all__ = [
     "decode_message",
     "decrypt_message",
     "decrypt_envelope_with_our_key",
+    "SignalMessage",
+    "ContentMessage",
+    "ExpirableMessage",
+    "TypingMessage",
+    "DataExtractionNotificationMessage",
+    "RawMessage",
+    "to_raw_message",
     "decrypt_with_session_protocol",
     "Session",
 ]
