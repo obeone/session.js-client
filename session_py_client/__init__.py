@@ -14,6 +14,27 @@ from .utils import (
 )
 from .storage import InMemoryStorage, Storage
 
+from .profile import (
+    PROFILE_IV_LENGTH,
+    PROFILE_KEY_LENGTH,
+    PROFILE_TAG_LENGTH,
+    Avatar,
+    Profile,
+    serialize_profile,
+    deserialize_profile,
+    encrypt_profile,
+    decrypt_profile,
+    download_avatar,
+    upload_avatar,
+)
+
+from .attachments.encrypt import (
+    encryptFileAttachment,
+    encryptAttachmentData,
+    addAttachmentPadding,
+)
+from .attachments.decrypt import decryptAttachment
+
 __all__ = [
     "Uint8ArrayToHex",
     "hexToUint8Array",
@@ -29,5 +50,20 @@ __all__ = [
     "SessionValidationErrorCode",
     "InMemoryStorage",
     "Storage",
+    "PROFILE_IV_LENGTH",
+    "PROFILE_KEY_LENGTH",
+    "PROFILE_TAG_LENGTH",
+    "Avatar",
+    "Profile",
+    "serialize_profile",
+    "deserialize_profile",
+    "encrypt_profile",
+    "decrypt_profile",
+    "download_avatar",
+    "upload_avatar",
+    "encryptFileAttachment",
+    "encryptAttachmentData",
+    "decryptAttachment",
+    "addAttachmentPadding",
 ]
 
