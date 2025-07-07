@@ -12,6 +12,21 @@ from .utils import (
     SessionValidationError,
     SessionValidationErrorCode,
 )
+
+from .profile import (
+    PROFILE_IV_LENGTH,
+    PROFILE_KEY_LENGTH,
+    PROFILE_TAG_LENGTH,
+    Avatar,
+    Profile,
+    serialize_profile,
+    deserialize_profile,
+    encrypt_profile,
+    decrypt_profile,
+    download_avatar,
+    upload_avatar,
+)
+
 from .attachments.encrypt import (
     encryptFileAttachment,
     encryptAttachmentData,
@@ -32,6 +47,17 @@ __all__ = [
     "checkNetwork",
     "SessionValidationError",
     "SessionValidationErrorCode",
+    "PROFILE_IV_LENGTH",
+    "PROFILE_KEY_LENGTH",
+    "PROFILE_TAG_LENGTH",
+    "Avatar",
+    "Profile",
+    "serialize_profile",
+    "deserialize_profile",
+    "encrypt_profile",
+    "decrypt_profile",
+    "download_avatar",
+    "upload_avatar",
     "encryptFileAttachment",
     "encryptAttachmentData",
     "decryptAttachment",
