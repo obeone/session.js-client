@@ -34,6 +34,26 @@ from .attachments.encrypt import (
     addAttachmentPadding,
 )
 from .attachments.decrypt import decryptAttachment
+from .crypto import (
+    add_message_padding,
+    remove_message_padding,
+    Keypair,
+    SodiumKeyPair,
+    Envelope,
+    EnvelopeType,
+    EncryptResult,
+    generate_keypair,
+    encrypt,
+    wrap_envelope,
+    build_envelope,
+    wrap,
+    EnvelopePlus,
+    extract_content,
+    decode_message,
+    decrypt_message,
+    decrypt_envelope_with_our_key,
+    decrypt_with_session_protocol,
+)
 
 __all__ = [
     "Uint8ArrayToHex",
@@ -65,5 +85,23 @@ __all__ = [
     "encryptAttachmentData",
     "decryptAttachment",
     "addAttachmentPadding",
+    "add_message_padding",
+    "remove_message_padding",
+    "Keypair",
+    "SodiumKeyPair",
+    "Envelope",
+    "EnvelopeType",
+    "EncryptResult",
+    "generate_keypair",
+    "encrypt",
+    "wrap_envelope",
+    "build_envelope",
+    "wrap",
+    "EnvelopePlus",
+    "extract_content",
+    "decode_message",
+    "decrypt_message",
+    "decrypt_envelope_with_our_key",
+    "decrypt_with_session_protocol",
 ]
 
