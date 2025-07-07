@@ -12,6 +12,12 @@ from .utils import (
     SessionValidationError,
     SessionValidationErrorCode,
 )
+from .attachments.encrypt import (
+    encryptFileAttachment,
+    encryptAttachmentData,
+    addAttachmentPadding,
+)
+from .attachments.decrypt import decryptAttachment
 
 __all__ = [
     "Uint8ArrayToHex",
@@ -26,5 +32,9 @@ __all__ = [
     "checkNetwork",
     "SessionValidationError",
     "SessionValidationErrorCode",
+    "encryptFileAttachment",
+    "encryptAttachmentData",
+    "decryptAttachment",
+    "addAttachmentPadding",
 ]
 
