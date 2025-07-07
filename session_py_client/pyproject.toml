@@ -15,6 +15,7 @@ dependencies = [
     "protobuf",
     "aiohttp",
     "typing",
-    "dataclasses"
+    "dataclasses",
+    "cryptography"
 ]
 

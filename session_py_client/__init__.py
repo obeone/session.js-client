@@ -12,6 +12,7 @@ from .utils import (
     SessionValidationError,
     SessionValidationErrorCode,
 )
+
 from .profile import (
     PROFILE_IV_LENGTH,
     PROFILE_KEY_LENGTH,
@@ -25,6 +26,13 @@ from .profile import (
     download_avatar,
     upload_avatar,
 )
+
+from .attachments.encrypt import (
+    encryptFileAttachment,
+    encryptAttachmentData,
+    addAttachmentPadding,
+)
+from .attachments.decrypt import decryptAttachment
 
 __all__ = [
     "Uint8ArrayToHex",
@@ -50,5 +58,9 @@ __all__ = [
     "decrypt_profile",
     "download_avatar",
     "upload_avatar",
+    "encryptFileAttachment",
+    "encryptAttachmentData",
+    "decryptAttachment",
+    "addAttachmentPadding",
 ]
 
