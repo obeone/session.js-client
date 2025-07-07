@@ -12,6 +12,7 @@ from .utils import (
     SessionValidationError,
     SessionValidationErrorCode,
 )
+from .storage import InMemoryStorage, Storage
 
 __all__ = [
     "Uint8ArrayToHex",
@@ -26,5 +27,7 @@ __all__ = [
     "checkNetwork",
     "SessionValidationError",
     "SessionValidationErrorCode",
+    "InMemoryStorage",
+    "Storage",
 ]
 
