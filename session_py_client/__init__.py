@@ -34,6 +34,7 @@ from .attachments.encrypt import (
     addAttachmentPadding,
 )
 from .attachments.decrypt import decryptAttachment
+from .session import Session
 from .crypto import (
     add_message_padding,
     remove_message_padding,
@@ -103,5 +104,6 @@ __all__ = [
     "decrypt_message",
     "decrypt_envelope_with_our_key",
     "decrypt_with_session_protocol",
+    "Session",
 ]
 
