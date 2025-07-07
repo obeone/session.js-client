@@ -12,6 +12,7 @@ from .utils import (
     SessionValidationError,
     SessionValidationErrorCode,
 )
+from .storage import InMemoryStorage, Storage
 
 from .profile import (
     PROFILE_IV_LENGTH,
@@ -47,6 +48,8 @@ __all__ = [
     "checkNetwork",
     "SessionValidationError",
     "SessionValidationErrorCode",
+    "InMemoryStorage",
+    "Storage",
     "PROFILE_IV_LENGTH",
     "PROFILE_KEY_LENGTH",
     "PROFILE_TAG_LENGTH",
