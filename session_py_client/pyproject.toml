@@ -19,3 +19,15 @@ dependencies = [
     "cryptography"
 ]
 
+[tool.setuptools]
+packages = [
+    "session_py_client",
+    "session_py_client.attachments",
+    "session_py_client.crypto",
+    "session_py_client.messages",
+    "session_py_client.profile",
+    "session_py_client.protobuf",
+    "session_py_client.storage",
+]
+package-dir = {"session_py_client" = "."}
+
