@@ -35,6 +35,7 @@ from .attachments.encrypt import (
 )
 from .attachments.decrypt import decryptAttachment
 from .session import Session
+from .mnemonic import decode_mnemonic
 from .crypto import (
     add_message_padding,
     remove_message_padding,
@@ -44,6 +45,7 @@ from .crypto import (
     EnvelopeType,
     EncryptResult,
     generate_keypair,
+    get_keypair_from_seed,
     encrypt,
     wrap_envelope,
     build_envelope,
@@ -94,6 +96,8 @@ __all__ = [
     "EnvelopeType",
     "EncryptResult",
     "generate_keypair",
+    "get_keypair_from_seed",
+    "decode_mnemonic",
     "encrypt",
     "wrap_envelope",
     "build_envelope",
