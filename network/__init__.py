@@ -6,7 +6,8 @@ import json
 from typing import Any, Optional
 
 import aiohttp
-from nacl import bindings
+from nacl import bindings, hash, signing
+from nacl.encoding import RawEncoder
 
 from session_py_client.crypto import Keypair
 from session_py_client.utils import hexToUint8Array, concatUInt8Array
@@ -39,9 +40,10 @@ def _blinded_ed25519_signature(message: bytes, keypair: Keypair, ka: bytes, kA: 
 def _get_blinding_values(server_pk: bytes, signing_keys: Keypair.ed25519.__class__) -> dict[str, bytes]:
     """Return blinding values for blinded signature."""
     k = bindings.crypto_core_ed25519_scalar_reduce(
-        bindings.crypto_generichash(64, server_pk)
+        hash.blake2b(server_pk, digest_size=64, encoder=RawEncoder)
     )
-    a = bindings.crypto_sign_ed25519_sk_to_curve25519(signing_keys.privateKey)
+    full_sk = signing_keys.privateKey + signing_keys.publicKey
+    a = bindings.crypto_sign_ed25519_sk_to_curve25519(full_sk)
     if len(a) > 32:
         a = a[:32]
     ka = bindings.crypto_core_ed25519_scalar_mul(k, a)
@@ -70,7 +72,7 @@ def sign_sogs_request(
         endpoint.encode(),
     )
     if body is not None:
-        body_hash = bindings.crypto_generichash(64, body)
+        body_hash = hash.blake2b(body, digest_size=64, encoder=RawEncoder)
         to_sign = concatUInt8Array(to_sign, body_hash)
     if blind:
         blinding = _get_blinding_values(pk, keypair.ed25519)
@@ -78,7 +80,8 @@ def sign_sogs_request(
             to_sign, keypair, blinding["secretKey"], blinding["publicKey"]
         )
         return signature
-    return bindings.crypto_sign_detached(to_sign, keypair.ed25519.privateKey)
+    signer = signing.SigningKey(keypair.ed25519.privateKey)
+    return signer.sign(to_sign).signature
 
 
 class Network:

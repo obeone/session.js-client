@@ -36,6 +36,12 @@ from .attachments.encrypt import (
 from .attachments.decrypt import decryptAttachment
 from .session import Session
 from .mnemonic import decode_mnemonic
+from .sogs import (
+    blind_session_id,
+    encode_sogs_message,
+    sign_sogs_request,
+    send_sogs_request,
+)
 from .crypto import (
     add_message_padding,
     remove_message_padding,
@@ -115,6 +121,10 @@ __all__ = [
     "RawMessage",
     "to_raw_message",
     "decrypt_with_session_protocol",
+    "blind_session_id",
+    "encode_sogs_message",
+    "sign_sogs_request",
+    "send_sogs_request",
     "Session",
 ]
 
