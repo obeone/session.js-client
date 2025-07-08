@@ -67,6 +67,25 @@ def generate_keypair() -> Keypair:
     )
 
 
+def get_keypair_from_seed(seed_hex: str) -> Keypair:
+    """Generate a ``Keypair`` deterministically from a hex seed."""
+
+    priv_key_hex_length = 64
+    if len(seed_hex) != priv_key_hex_length:
+        seed_hex = (seed_hex + "0" * 32)[:priv_key_hex_length]
+    seed = bytes.fromhex(seed_hex)
+
+    pk, sk = bindings.crypto_sign_seed_keypair(seed)
+    x_public = bindings.crypto_sign_ed25519_pk_to_curve25519(pk)
+    prepended_x_public = b"\x05" + x_public
+    x_secret = bindings.crypto_sign_ed25519_sk_to_curve25519(sk)
+
+    return Keypair(
+        x25519=SodiumKeyPair(publicKey=prepended_x_public, privateKey=x_secret),
+        ed25519=SodiumKeyPair(publicKey=pk, privateKey=sk),
+    )
+
+
 @dataclass
 class EncryptResult:
     """Result returned by :func:`encrypt`."""
