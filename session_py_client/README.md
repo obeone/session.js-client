@@ -64,6 +64,44 @@ async def update_avatar(session: Session, avatar_bytes: bytes):
     await session.network.on_request("set_profile", data)
 ```
 
+### SOGS Utilities
+
+`session_py_client.sogs` exposes helpers to interact with Session Open Group Service.
+
+```python
+from session_py_client.sogs import encode_sogs_message, send_sogs_request
+
+message_data = encode_sogs_message(
+    session,
+    server_pk="11" * 32,
+    message=my_message,
+    blind=True,
+)
+response = await send_sogs_request(
+    session,
+    host="https://sogs.example.com",
+    server_pk="11" * 32,
+    endpoint="/rooms",
+    method="POST",
+    body=message_data["data"],
+)
+```
+
+### Message Dataclasses
+
+Several dataclasses mirror the message schema used by Session. They provide
+`content_proto()` helpers returning ready-to-send protobuf structures.
+
+```python
+from session_py_client.messages import TypingMessage, DataExtractionNotificationMessage
+
+typing = TypingMessage(timestamp=123, is_typing=True)
+typing_proto = typing.content_proto()
+
+notification = DataExtractionNotificationMessage(timestamp=456)
+notification_proto = notification.content_proto()
+```
+
 ## Migrating from TypeScript/Bun
 
 1. Replace `import { Session } from "session.js"` with `from session_py_client import Session`.
