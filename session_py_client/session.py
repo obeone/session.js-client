@@ -35,6 +35,23 @@ class Session:
         self.pollers: set[Poller] = set()
         self.events: Dict[str, list[Callable[..., None]]] = {}
 
+    async def _request(self, req: Dict[str, Any]) -> Any:
+        '''
+        Send a request through the configured network layer.
+
+        Args:
+            req (Dict[str, Any]): Dictionary containing ``type`` and optional ``body``.
+
+        Returns:
+            Any: Response from the network layer.
+        '''
+        if self.network is None:
+            raise SessionValidationError(
+                SessionValidationErrorCode.INVALID_OPTIONS,
+                "Network not configured",
+            )
+        return await self.network.on_request(req["type"], req.get("body"))
+
     async def set_mnemonic(self, mnemonic: str) -> None:
         """Set mnemonic and derive new keypair and session identifier."""
 

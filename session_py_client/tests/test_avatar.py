@@ -7,21 +7,25 @@ from session_py_client.profile import (
     Avatar,
     PROFILE_KEY_LENGTH,
 )
+from session_py_client import Session
 
-class DummySession:
+
+class DummyNetwork:
     def __init__(self):
         self.requests = []
 
-    async def _request(self, req):
-        self.requests.append((req["type"], req.get("body")))
-        if req["type"] == "UploadAttachment":
+    async def on_request(self, type_, body):
+        self.requests.append((type_, body))
+        if type_ == "UploadAttachment":
             return {"url": "http://filev2.getsession.org/file/42"}
-        if req["type"] == "DownloadAttachment":
+        if type_ == "DownloadAttachment":
             return b"encrypted"
         return None
 
+
 def test_upload_avatar(monkeypatch):
-    session = DummySession()
+    network = DummyNetwork()
+    session = Session(network=network)
 
     monkeypatch.setattr(
         "session_py_client.profile.encrypt_profile", lambda data, key: b"enc" + data
@@ -36,12 +40,13 @@ def test_upload_avatar(monkeypatch):
 
     assert result["avatarPointer"].endswith("42")
     assert result["profileKey"] == b"\x01" * PROFILE_KEY_LENGTH
-    req_type, body = session.requests[0]
+    req_type, body = network.requests[0]
     assert req_type == "UploadAttachment"
     assert body["data"] == b"enc" + b"img"
 
 def test_download_avatar(monkeypatch):
-    session = DummySession()
+    network = DummyNetwork()
+    session = Session(network=network)
     avatar = Avatar(url="http://filev2.getsession.org/file/42", key=b"k" * PROFILE_KEY_LENGTH)
 
     monkeypatch.setattr(
@@ -55,6 +60,6 @@ def test_download_avatar(monkeypatch):
     asyncio.set_event_loop(None)
 
     assert result == b"dec"
-    req_type, body = session.requests[0]
+    req_type, body = network.requests[0]
     assert req_type == "DownloadAttachment"
     assert body["id"] == "42"
