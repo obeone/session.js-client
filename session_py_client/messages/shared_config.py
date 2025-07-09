@@ -15,9 +15,11 @@ class SharedConfigMessage(ContentMessage):
         data (bytes): Serialized configuration data.
     '''
 
-    seqno: int
-    kind: signalservice_pb2.SharedConfigMessage.Kind
-    data: bytes
+    seqno: int = 0
+    kind: signalservice_pb2.SharedConfigMessage.Kind = (
+        signalservice_pb2.SharedConfigMessage.USER_PROFILE
+    )
+    data: bytes = b""
 
     def content_proto(self) -> signalservice_pb2.Content:
         content = signalservice_pb2.Content()

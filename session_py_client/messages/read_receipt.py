@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 from ..protobuf import signalservice_pb2
 from .base import ContentMessage
@@ -9,7 +9,7 @@ from .base import ContentMessage
 class ReceiptMessage(ContentMessage):
     '''Base class for receipt messages.'''
 
-    timestamps: List[int]
+    timestamps: Optional[List[int]] = None
 
     def get_receipt_type(self) -> signalservice_pb2.ReceiptMessage.Type:
         '''Return the receipt type.'''

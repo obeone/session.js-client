@@ -13,7 +13,7 @@ class UnsendMessage(ContentMessage):
         author (str): Sender of the unsend message.
     '''
 
-    author: str
+    author: str = ""
 
     def content_proto(self) -> signalservice_pb2.Content:
         content = signalservice_pb2.Content()

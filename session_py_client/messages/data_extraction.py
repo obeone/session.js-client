@@ -14,8 +14,10 @@ class DataExtractionNotificationMessage(ExpirableMessage):
         timestamp (int): Event timestamp.
     '''
 
-    action: signalservice_pb2.DataExtractionNotification.Type
-    extraction_timestamp: int
+    action: signalservice_pb2.DataExtractionNotification.Type = (
+        signalservice_pb2.DataExtractionNotification.SCREENSHOT
+    )
+    extraction_timestamp: int = 0
 
     def content_proto(self) -> signalservice_pb2.Content:
         content = super().content_proto()

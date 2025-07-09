@@ -70,9 +70,9 @@ class ConfigurationMessage(ContentMessage):
         contacts (List[ConfigurationMessageContact]): Contact list.
     '''
 
-    active_closed_groups: List[ConfigurationMessageClosedGroup]
-    active_open_groups: List[str]
-    display_name: str
+    active_closed_groups: List[ConfigurationMessageClosedGroup] = None
+    active_open_groups: List[str] = None
+    display_name: str = ""
     profile_picture: str | None = None
     profile_key: bytes | None = None
     contacts: List[ConfigurationMessageContact] | None = None
