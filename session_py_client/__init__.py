@@ -36,7 +36,7 @@ from .attachments.encrypt import (
 )
 from .attachments.decrypt import decryptAttachment
 from .session import Session
-from .mnemonic import decode_mnemonic
+from .mnemonic import decode_mnemonic, generate_mnemonic
 from .sogs import (
     blind_session_id,
     encode_sogs_message,
@@ -129,6 +129,7 @@ __all__ = [
     "generate_keypair",
     "get_keypair_from_seed",
     "decode_mnemonic",
+    "generate_mnemonic",
     "encrypt",
     "wrap_envelope",
     "build_envelope",
