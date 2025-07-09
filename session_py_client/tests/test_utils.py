@@ -14,6 +14,7 @@ from session_py_client.utils import (
     checkNetwork,
     SessionValidationError,
     SessionValidationErrorCode,
+    get_placeholder_display_name,
 )
 
 
@@ -86,4 +87,8 @@ def test_check_storage_network():
 
     with pytest.raises(SessionValidationError):
         checkNetwork(BadNetwork())
+
+
+def test_get_placeholder_display_name():
+    assert get_placeholder_display_name("1234567890abcdef") == "(1234...cdef)"
 
