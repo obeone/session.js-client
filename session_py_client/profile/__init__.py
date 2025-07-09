@@ -87,12 +87,11 @@ async def download_avatar(self, avatar: Avatar) -> bytes:
     if not file_id.isdigit():
         raise ValueError("Invalid avatar file ID")
 
-    avatar_file = await self._request(
-        {
-            "type": "DownloadAttachment",
-            "body": {"id": file_id},
-        }
-    )
+    request = {"type": "DownloadAttachment", "body": {"id": file_id}}
+    if hasattr(self, "_request"):
+        avatar_file = await self._request(request)
+    else:
+        avatar_file = await self.on_request(request["type"], request["body"])
     return decrypt_profile(avatar_file, avatar.key)
 
 
@@ -109,12 +108,11 @@ async def upload_avatar(self, avatar: bytes) -> Dict[str, Any]:
     '''
     profile_key = os.urandom(PROFILE_KEY_LENGTH)
     encrypted_avatar = encrypt_profile(avatar, profile_key)
-    upload_request = await self._request(
-        {
-            "type": "UploadAttachment",
-            "body": {"data": encrypted_avatar},
-        }
-    )
+    request = {"type": "UploadAttachment", "body": {"data": encrypted_avatar}}
+    if hasattr(self, "_request"):
+        upload_request = await self._request(request)
+    else:
+        upload_request = await self.on_request(request["type"], request["body"])
     return {"profileKey": profile_key, "avatarPointer": upload_request["url"]}
 
 __all__ = [
