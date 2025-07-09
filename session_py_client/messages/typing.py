@@ -15,7 +15,7 @@ class TypingMessage(ContentMessage):
         typing_timestamp (Optional[int]): Timestamp associated with the event.
     '''
 
-    is_typing: bool
+    is_typing: bool = False
     typing_timestamp: Optional[int] = None
 
     def ttl(self) -> int:
