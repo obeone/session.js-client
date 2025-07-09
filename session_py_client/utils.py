@@ -146,3 +146,18 @@ def checkNetwork(network: Any) -> None:
             "Provided network does not have method on_request",
         )
 
+
+def get_placeholder_display_name(session_id: str) -> str:
+    """Return a shortened placeholder name for a session ID.
+
+    Args:
+        session_id (str): The original session identifier.
+
+    Returns:
+        str: The placeholder display name with the first and last four
+            characters of the session ID.
+
+    """
+
+    return f"({session_id[:4]}...{session_id[-4:]})"
+

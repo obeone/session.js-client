@@ -11,6 +11,7 @@ from .utils import (
     checkNetwork,
     SessionValidationError,
     SessionValidationErrorCode,
+    get_placeholder_display_name,
 )
 from .storage import InMemoryStorage, Storage
 
@@ -95,6 +96,7 @@ __all__ = [
     "isHex",
     "Uint8ArrayToBase64",
     "base64ToUint8Array",
+    "get_placeholder_display_name",
     "Deferred",
     "checkStorage",
     "checkNetwork",
