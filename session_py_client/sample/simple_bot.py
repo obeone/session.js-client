@@ -7,9 +7,9 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from session_py_client import Session, generate_mnemonic
 from network import Network
 from polling.poller import Poller, NetworkModule
-from session_py_client import Session, generate_mnemonic
 
 
 class MessageNetwork(NetworkModule):
