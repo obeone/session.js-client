@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import binascii
+import random
 from pathlib import Path
 from typing import List
 
@@ -72,3 +73,19 @@ def decode_mnemonic(mnemonic: str) -> str:
         if expected != checksum_word[:_PREFIX_LEN]:
             raise ValueError("Invalid checksum word")
     return out.hex()
+
+
+def generate_mnemonic(num_words: int = 12) -> str:
+    """Generate a random mnemonic with checksum."""
+
+    if num_words < 12 or num_words % 3 != 0:
+        raise ValueError("num_words must be a multiple of 3 and at least 12")
+
+    words = load_words()
+    chosen = [random.choice(words) for _ in range(num_words)]
+
+    index = _get_checksum_index(chosen)
+    prefix = chosen[index][:_PREFIX_LEN]
+    checksum = next((w for w in words if w.startswith(prefix)), chosen[index])
+
+    return " ".join(chosen + [checksum])
