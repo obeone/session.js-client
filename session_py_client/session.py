@@ -150,7 +150,16 @@ class Session:
         """Internal loop reading messages from poller."""
 
         while True:
-            messages = await poller.poll()
+            try:
+                messages = await poller.poll()
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:  # noqa: BLE001
+                print(f"Polling error: {exc}")
+                await asyncio.sleep(getattr(poller, "_interval", 3.0))
+                continue
+
             if messages:
                 self._emit("messages", messages)
+
             await asyncio.sleep(getattr(poller, "_interval", 3.0))
