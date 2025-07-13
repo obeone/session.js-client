@@ -13,18 +13,33 @@ from polling.poller import Poller, NetworkModule
 
 
 class MessageNetwork(NetworkModule):
-    """Network module fetching messages using the base network layer."""
+    """
+    Network module fetching messages from the base network layer.
+
+    Args:
+        session (Session): Active session used to perform requests.
+    """
 
     def __init__(self, session: Session) -> None:
         self._session = session
 
-    async def fetch_messages(self):
-        """Fetch new messages from the server."""
+    async def fetch_messages(self) -> list:
+        """
+        Fetch new messages from the server.
+
+        Returns:
+            list: Raw message dictionaries returned by the network.
+        """
         return await self._session.network.on_request("fetch_messages", None)
 
 
 async def main() -> None:
-    """Run a simple echo bot that replies to incoming messages."""
+    """
+    Run a simple echo bot that replies to incoming messages.
+
+    The bot generates a mnemonic if none is provided, prints the mnemonic and
+    contact ID, then polls for messages and echoes each one back to the sender.
+    """
     base_url = os.environ.get("SESSION_BASE_URL", "https://backend.getsession.org")
     mnemonic = os.environ.get("SESSION_MNEMONIC")
 
@@ -40,7 +55,13 @@ async def main() -> None:
     poller = Poller(MessageNetwork(session), interval=5.0)
     session.add_poller(poller)
 
-    def on_messages(msgs):
+    def on_messages(msgs: list) -> None:
+        """
+        Handle newly received messages.
+
+        Args:
+            msgs (list): List of message dictionaries.
+        """
         for msg in msgs:
             sender = msg.get("from")
             text = msg.get("body")
