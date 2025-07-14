@@ -1,5 +1,9 @@
 import asyncio
 import os
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 from session_py_client import Session, generate_mnemonic
 from network import Network
