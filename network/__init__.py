@@ -104,6 +104,16 @@ class Network:
         self._session = aiohttp.ClientSession()
         self._ws: Optional[aiohttp.ClientWebSocketResponse] = None
 
+    async def __aenter__(self) -> "Network":
+        """Return the active network instance when entering a context."""
+
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb) -> None:
+        """Close resources when exiting a context."""
+
+        await self.close()
+
     async def connect_ws(self) -> None:
         """Establish websocket connection if URL configured."""
         if self.websocket_url and self._ws is None:
