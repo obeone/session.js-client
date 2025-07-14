@@ -1,0 +1,6 @@
+aiohttp
+mnemonic
+pynacl
+cryptography
+aiofiles
+msgpack

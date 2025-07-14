@@ -174,4 +174,6 @@ dist
 # Finder (MacOS) folder config
 .DS_Store
 
-examples
+.venv
+*.egg-info
+__pycache__
